@@ -72,6 +72,7 @@ html[lang="ru"] .lang .l-ru,html[lang="en"] .lang .l-en{opacity:1;color:var(--ac
 @keyframes drift2{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-70px,50px,0) scale(.92)}100%{transform:translate3d(-20px,-30px,0) scale(1.1)}}
 .b1{width:520px;height:520px;background:var(--glow1);top:-180px;left:-120px}
 .b2{width:460px;height:460px;background:var(--glow2);top:-60px;right:-160px}
+.stars{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .hero .wrap{position:relative;z-index:1}
 .label{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent);padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:var(--card)}
 .label::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
@@ -83,7 +84,8 @@ h1 em{font-style:normal;background:linear-gradient(95deg,var(--accent),#b39dff,v
 .hi.l{animation-delay:.05s}.hi.s{animation-delay:.75s}.hi.b{animation-delay:.9s}
 @keyframes rise{from{opacity:0;transform:translateY(22px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 .sub{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:34em;margin-bottom:36px}
-.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--on-accent);font:700 16px/1 'Manrope',sans-serif;padding:17px 28px;border-radius:14px;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 10px 30px -8px var(--accent)}
+.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--on-accent);font:700 16px/1 'Manrope',sans-serif;padding:17px 28px;border-radius:14px;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s,translate .25s;translate:var(--mx,0) var(--my,0);box-shadow:0 10px 30px -8px var(--accent)}
+.btn>svg,.btn>span{translate:var(--ix,0) var(--iy,0);transition:translate .25s}
 .btn:hover{background:var(--accent-hover);transform:translateY(-2px)}
 .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);background-size:250% 100%;background-position:150% 0;transition:background-position .8s ease}
 .btn:hover::after{background-position:-50% 0}
@@ -110,15 +112,21 @@ h2{font-size:clamp(28px,4.6vw,40px);letter-spacing:-.02em;line-height:1.15;font-
 .card .ic svg{width:24px;height:24px}
 .card h3{font-size:19px;line-height:1.3;margin-bottom:8px;letter-spacing:-.01em}
 .card p{color:var(--muted);font-size:16px}
-.tech{margin-top:26px;color:var(--muted);font-size:14px;opacity:.85;letter-spacing:.02em}
+.marquee{margin-top:26px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mq{display:flex;width:max-content;animation:mq 30s linear infinite}
+.marquee:hover .mq{animation-play-state:paused}
+.mq-set{display:flex;flex:none}
+.pill{display:inline-flex;align-items:center;gap:8px;margin-right:10px;padding:8px 16px;border:1px solid var(--border);background:var(--card);border-radius:999px;color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
 
 /* projects */
 .proj{display:grid;gap:20px;grid-template-columns:1fr}
 @media(min-width:860px){.proj{grid-template-columns:1fr 1fr}}
 .pc{padding:0;overflow:hidden;display:flex;flex-direction:column}
-.visual{height:340px;position:relative;overflow:hidden;display:flex;justify-content:center;align-items:flex-end;background:radial-gradient(120% 90% at 50% 0%,rgba(124,92,255,.28),transparent 70%),var(--card);border-bottom:1px solid var(--border)}
-.phone{width:210px;border:6px solid var(--phone);outline:1px solid var(--phone-border);border-bottom:0;border-radius:30px 30px 0 0;overflow:hidden;background:#0d0f14;transform:perspective(900px) translateY(14px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .4s ease-out;box-shadow:0 20px 50px rgba(0,0,0,.45);animation:float 6s ease-in-out infinite}
-.pc:hover .phone{transform:perspective(900px) translateY(10px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg))}
+.visual{height:340px;position:relative;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;padding-top:28px;background:radial-gradient(120% 90% at 50% 0%,var(--glow,rgba(124,92,255,.28)),transparent 70%),var(--card);border-bottom:1px solid var(--border)}
+.phone{width:210px;border:6px solid var(--phone);outline:1px solid var(--phone-border);border-bottom:0;border-radius:30px 30px 0 0;overflow:hidden;background:#0d0f14;transform:perspective(900px) translateY(0) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .4s ease-out;box-shadow:0 20px 50px rgba(0,0,0,.45);animation:float 6s ease-in-out infinite}
+.pc:hover .phone{transform:perspective(900px) translateY(-4px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg))}
 @keyframes float{0%,100%{translate:0 0}50%{translate:0 -7px}}
 .phone img{display:block;width:100%;height:auto}
 .ams{align-items:center;background:#12132a}
@@ -146,6 +154,13 @@ h2{font-size:clamp(28px,4.6vw,40px);letter-spacing:-.02em;line-height:1.15;font-
 .contact h2{margin-bottom:30px}
 footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--border)}
 
+/* extras */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none;background:linear-gradient(90deg,var(--accent),#b39dff);transform:scaleX(0);transform-origin:left;will-change:transform}
+.toast{position:fixed;left:50%;bottom:28px;z-index:55;max-width:calc(100% - 32px);padding:12px 20px;border-radius:999px;border:1px solid var(--border-hover);background:var(--nav-bg);color:var(--text);font-weight:700;font-size:15px;box-shadow:var(--shadow);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);pointer-events:none;opacity:0;translate:-50% 14px;transition:opacity .35s,translate .35s}
+.toast.on{opacity:1;translate:-50% 0}
+.rain{position:fixed;inset:0;width:100%;height:100%;z-index:50;pointer-events:none;transition:opacity .8s}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
 /* reveal */
 .js .rv{opacity:0;transform:translateY(26px);filter:blur(7px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1),filter .8s ease;transition-delay:calc(var(--i,0)*100ms)}
 .js .rv.in{opacity:1;transform:none;filter:none}
@@ -156,10 +171,15 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
   .js .rv{opacity:1;transform:none;filter:none}
   .card:hover,.btn:hover{transform:none}
   .card:hover .ic{transform:none}
+  .mq{width:auto;flex-wrap:wrap}
+  .mq-set{flex-wrap:wrap}
+  .mq-set+.mq-set{display:none}
+  .marquee{-webkit-mask-image:none;mask-image:none}
 }
 </style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
 <nav>
   <div class="wrap nav-in">
     <a href="#top" class="logo">99<span>wr1d</span></a>
@@ -180,6 +200,7 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
 
 <header class="hero" id="top">
   <div class="blob b1"></div><div class="blob b2"></div>
+  <canvas class="stars" aria-hidden="true"></canvas>
   <div class="wrap">
     <span class="label hi l" data-i18n="hero_label">ВЕБ-РАЗРАБОТЧИК</span>
     <h1 data-i18n="hero_title" data-html>Делаю сайты целиком: от экрана до <em>базы данных</em></h1>
@@ -212,7 +233,7 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
         <p data-i18n="c3_p">Сайт одинаково удобен на экране телефона, планшета и компьютера.</p>
       </div>
     </div>
-    <p class="tech rv">React · TypeScript · Vite · PWA · SQL · Cloudflare</p>
+    <div class="marquee rv" role="img" aria-label="React, TypeScript, Vite, PWA, SQL, Cloudflare, HTML, CSS, JavaScript, Node.js"><div class="mq"><div class="mq-set"><span class="pill">React</span><span class="pill">TypeScript</span><span class="pill">Vite</span><span class="pill">PWA</span><span class="pill">SQL</span><span class="pill">Cloudflare</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">Node.js</span></div><div class="mq-set" aria-hidden="true"><span class="pill">React</span><span class="pill">TypeScript</span><span class="pill">Vite</span><span class="pill">PWA</span><span class="pill">SQL</span><span class="pill">Cloudflare</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">Node.js</span></div></div></div>
   </div>
 </section>
 
@@ -226,6 +247,22 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
           <h3>Flow</h3>
           <p data-i18n="flow_p">Приложение для учёта личных финансов. Работает прямо в браузере и устанавливается на телефон как обычное приложение.</p>
           <a class="btn sm" href="https://flowfinance-025.pages.dev" target="_blank" rel="noopener" data-i18n="open">Открыть</a>
+        </div>
+      </article>
+      <article class="card pc rv">
+        <div class="visual" style="--glow:rgba(197,241,90,.16)"><div class="phone"><img src="assets/flowcoach.webp" width="780" height="1530" alt="FlowCoach" loading="lazy" data-i18n-alt="coach_alt"></div></div>
+        <div class="pbody">
+          <h3>FlowCoach</h3>
+          <p data-i18n="coach_p">Фитнес-трекер: библиотека из 140 упражнений со схемой мышц и удобная запись тренировки прямо в зале. Устанавливается на телефон.</p>
+          <a class="btn sm" href="https://flowcoach.pages.dev" target="_blank" rel="noopener" data-i18n="open">Открыть</a>
+        </div>
+      </article>
+      <article class="card pc rv">
+        <div class="visual" style="--glow:rgba(169,155,255,.2)"><div class="phone"><img src="assets/flowmemory.webp" width="780" height="1530" alt="FlowMemory" loading="lazy" data-i18n-alt="mem_alt"></div></div>
+        <div class="pbody">
+          <h3>FlowMemory</h3>
+          <p data-i18n="mem_p">Личный архив заметок, идей и целей: шаблоны, чек-листы, дневник и быстрый поиск. Все записи хранятся на устройстве.</p>
+          <a class="btn sm" href="https://flow-memory.pages.dev" target="_blank" rel="noopener" data-i18n="open">Открыть</a>
         </div>
       </article>
       <article class="card pc rv">
@@ -264,23 +301,45 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
       about_h:'Что я делаю',c1_t:'Сайты и веб-приложения',c1_p:'Собираю сайт целиком: красивый вид, удобные кнопки и всё, что должно работать внутри.',
       c2_t:'Своя база данных',c2_p:'Ваши данные хранятся в надёжном месте и всегда под рукой — их можно искать, менять и не терять.',
       c3_t:'Работает на телефоне',c3_p:'Сайт одинаково удобен на экране телефона, планшета и компьютера.',
-      proj_h:'Проекты',flow_p:'Приложение для учёта личных финансов. Работает прямо в браузере и устанавливается на телефон как обычное приложение.',flow_alt:'Экран приложения Flow',open:'Открыть',
+      proj_h:'Проекты',flow_p:'Приложение для учёта личных финансов. Работает прямо в браузере и устанавливается на телефон как обычное приложение.',flow_alt:'Экран приложения Flow',coach_alt:'Экран приложения FlowCoach',mem_alt:'Экран приложения FlowMemory',coach_p:'Фитнес-трекер: библиотека из 140 упражнений со схемой мышц и удобная запись тренировки прямо в зале. Устанавливается на телефон.',mem_p:'Личный архив заметок, идей и целей: шаблоны, чек-листы, дневник и быстрый поиск. Все записи хранятся на устройстве.',open:'Открыть',
       ams_p:'Athletes Management System — система управления спортсменами со своей базой данных.',private:'Закрытый проект',
-      contact_h:'Есть идея? Напишите',contact_btn:'@t99wr1d в Telegram'},
+      contact_h:'Есть идея? Напишите',contact_btn:'@t99wr1d в Telegram',egg:'Ты нашёл пасхалку 👀'},
     en:{title:'99wr1d — web developer',desc:'99wr1d — web developer. Complex websites and web apps with their own database.',ogd:'Complex websites and web apps with their own database.',
       nav_about:'About',nav_projects:'Projects',nav_contact:'Contact',
       hero_label:'WEB DEVELOPER',hero_title:'I build websites end to end: from the screen to <em>the database</em>',hero_sub:'Complex websites and web apps with their own database.',cta:'Message me on Telegram',
       about_h:'What I do',c1_t:'Websites & web apps',c1_p:'I build the whole site: a clean look, easy-to-use buttons and everything that has to work behind the scenes.',
       c2_t:'Custom databases',c2_p:'Your data is kept in a safe place and always at hand — easy to search, edit and never lose.',
       c3_t:'Works great on phones',c3_p:'The site feels just as comfortable on a phone, a tablet or a computer.',
-      proj_h:'Projects',flow_p:'A personal finance app. It runs right in the browser and installs on your phone like a regular app.',flow_alt:'Flow app screen',open:'Open',
+      proj_h:'Projects',flow_p:'A personal finance app. It runs right in the browser and installs on your phone like a regular app.',flow_alt:'Flow app screen',coach_alt:'FlowCoach app screen',mem_alt:'FlowMemory app screen',coach_p:'Fitness tracker: a library of 140 exercises with a muscle map and easy workout logging right at the gym. Installs on your phone.',mem_p:'A personal archive of notes, ideas and goals: templates, checklists, a journal and quick search. Everything stays on your device.',open:'Open',
       ams_p:'Athletes Management System — an athlete management platform with its own database.',private:'Private project',
-      contact_h:"Have an idea? Let's talk",contact_btn:'@t99wr1d on Telegram'}
+      contact_h:"Have an idea? Let's talk",contact_btn:'@t99wr1d on Telegram',egg:'You found an easter egg 👀'}
   };
   var root=document.documentElement;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var CH='!<>-_\\/[]{}\u2014=+*^?#01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  function textNodes(el,out){for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3)out.push(n);else if(n.nodeType===1)textNodes(n,out);}return out;}
+  function cancelScr(el){var s=el._sc;if(!s)return;cancelAnimationFrame(s.id);s.ns.forEach(function(n,i){n.nodeValue=s.fin[i];});el._sc=null;}
+  function scramble(el){
+    if(reduce)return;cancelScr(el);
+    var ns=textNodes(el,[]),fin=ns.map(function(n){return n.nodeValue;}),total=0,t0=0;
+    fin.forEach(function(s){total+=s.length;});
+    var st=el._sc={id:0,ns:ns,fin:fin};
+    function frame(ts){
+      if(!t0)t0=ts;
+      var p=Math.min(1,(ts-t0)/900),settled=Math.floor(p*total),idx=0;
+      ns.forEach(function(n,i){
+        var s=fin[i],o='';
+        for(var j=0;j<s.length;j++,idx++){var c=s.charAt(j);o+=(idx<settled||/\s/.test(c))?c:CH.charAt(Math.floor(Math.random()*CH.length));}
+        n.nodeValue=o;
+      });
+      if(p<1)st.id=requestAnimationFrame(frame);else el._sc=null;
+    }
+    st.id=requestAnimationFrame(frame);
+  }
   function setLang(l,save){
     var d=D[l];root.setAttribute('lang',l);
-    document.querySelectorAll('[data-i18n]').forEach(function(e){var v=d[e.getAttribute('data-i18n')];if(v!=null){if(e.hasAttribute('data-html'))e.innerHTML=v;else e.textContent=v;}});
+    document.querySelectorAll('[data-i18n]').forEach(function(e){cancelScr(e);var v=d[e.getAttribute('data-i18n')];if(v!=null){if(e.hasAttribute('data-html'))e.innerHTML=v;else e.textContent=v;}});
     document.querySelectorAll('[data-i18n-alt]').forEach(function(e){e.setAttribute('alt',d[e.getAttribute('data-i18n-alt')]);});
     document.title=d.title;
     var m=document.querySelector('meta[name="description"]');if(m)m.setAttribute('content',d.desc);
@@ -289,17 +348,24 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
     if(save){try{localStorage.setItem('lang',l);}catch(e){}}
   }
   function setTheme(t,save){
-    root.classList.add('theming');clearTimeout(setTheme.t);setTheme.t=setTimeout(function(){root.classList.remove('theming');},450);
-    root.setAttribute('data-theme',t);
+    var apply=function(){root.setAttribute('data-theme',t);starColor();};
     var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f6f6fa':'#0b0d12');
     if(save){try{localStorage.setItem('theme',t);}catch(e){}}
+    if(document.startViewTransition&&!reduce){
+      var b=document.getElementById('themeBtn').getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
+      var r=Math.hypot(Math.max(x,window.innerWidth-x),Math.max(y,window.innerHeight-y));
+      var vt=document.startViewTransition(apply);
+      vt.ready.then(function(){
+        root.animate({clipPath:['circle(0px at '+x+'px '+y+'px)','circle('+r+'px at '+x+'px '+y+'px)']},{duration:600,easing:'ease-in-out',pseudoElement:'::view-transition-new(root)'});
+      },function(){});
+      return;
+    }
+    root.classList.add('theming');clearTimeout(setTheme.t);setTheme.t=setTimeout(function(){root.classList.remove('theming');},450);
+    apply();
   }
   setLang(root.getAttribute('lang')==='en'?'en':'ru',false);
-  document.getElementById('langBtn').addEventListener('click',function(){setLang(root.getAttribute('lang')==='ru'?'en':'ru',true);});
+  document.getElementById('langBtn').addEventListener('click',function(){setLang(root.getAttribute('lang')==='ru'?'en':'ru',true);scramble(document.querySelector('.label'));});
   document.getElementById('themeBtn').addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='light'?'dark':'light',true);});
-
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
   /* hero headline: split into words once on load (not replayed on language switch) */
   if(!reduce){
@@ -331,7 +397,12 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
 
   /* nav state */
   var nav=document.querySelector('nav');
-  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>20);}
+  var bar=document.querySelector('.progress'),maxS=1,barRaf=0;
+  function calcMax(){maxS=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);}
+  function paintBar(){barRaf=0;var p=Math.min(1,Math.max(0,window.scrollY/maxS));bar.style.transform='scaleX('+p.toFixed(4)+')';}
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>20);if(!barRaf)barRaf=requestAnimationFrame(paintBar);}
+  calcMax();window.addEventListener('resize',calcMax);window.addEventListener('load',calcMax);
+  if(window.ResizeObserver)new ResizeObserver(calcMax).observe(document.body);
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
   if(fine&&!reduce){
@@ -345,6 +416,131 @@ footer{padding:36px 0 44px;text-align:center;color:var(--muted);font-size:14px;b
       if(c.querySelector('.phone')){c.style.setProperty('--ty',((x/r.width-.5)*12).toFixed(2)+'deg');c.style.setProperty('--tx',(-(y/r.height-.5)*8).toFixed(2)+'deg');}
     });
     document.querySelectorAll('.card').forEach(function(c){c.addEventListener('pointerleave',function(){c.style.setProperty('--tx','0deg');c.style.setProperty('--ty','0deg');});});
+  }
+
+  /* scramble on load + logo hover */
+  var logo=document.querySelector('.logo');
+  if(!reduce){
+    setTimeout(function(){scramble(document.querySelector('.label'));},300);
+    if(fine)logo.addEventListener('mouseenter',function(){scramble(logo);});
+  }
+
+  /* magnetic buttons */
+  if(fine&&!reduce){
+    document.querySelectorAll('.btn').forEach(function(b){
+      var r=null;
+      b.addEventListener('pointerenter',function(){r=b.getBoundingClientRect();});
+      b.addEventListener('pointermove',function(e){
+        if(!r)r=b.getBoundingClientRect();
+        var dx=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width/2)/(r.width/2))),dy=Math.max(-1,Math.min(1,(e.clientY-r.top-r.height/2)/(r.height/2)));
+        b.style.setProperty('--mx',(dx*8).toFixed(1)+'px');b.style.setProperty('--my',(dy*8).toFixed(1)+'px');
+        b.style.setProperty('--ix',(dx*4).toFixed(1)+'px');b.style.setProperty('--iy',(dy*4).toFixed(1)+'px');
+      });
+      b.addEventListener('pointerleave',function(){r=null;['--mx','--my','--ix','--iy'].forEach(function(k){b.style.removeProperty(k);});});
+    });
+  }
+
+  /* hero constellation */
+  var cv=document.querySelector('.stars'),cx=cv.getContext('2d'),heroEl=document.querySelector('.hero');
+  var sW=0,sH=0,P=[],mouse={x:0,y:0,on:false},rgb='124,92,255',sVis=true,sRaf=0,sLast=0;
+  function starColor(){
+    var v=getComputedStyle(root).getPropertyValue('--accent').trim(),m=/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(v);
+    if(m){var x=m[1];if(x.length===3)x=x.replace(/./g,'$&$&');rgb=parseInt(x.slice(0,2),16)+','+parseInt(x.slice(2,4),16)+','+parseInt(x.slice(4,6),16);}
+  }
+  function sResize(){
+    var w=heroEl.clientWidth,h=heroEl.clientHeight;if(!w||!h)return;
+    var d=Math.min(window.devicePixelRatio||1,2),n=w<700?35:70;
+    cv.width=Math.round(w*d);cv.height=Math.round(h*d);cx.setTransform(d,0,0,d,0,0);
+    P.forEach(function(p){if(sW){p.x*=w/sW;p.y*=h/sH;}});
+    sW=w;sH=h;
+    while(P.length>n)P.pop();
+    while(P.length<n){var a=Math.random()*6.283,sp=6+Math.random()*12;P.push({x:Math.random()*w,y:Math.random()*h,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:1+Math.random()});}
+    if(reduce||!sRaf)sDraw();
+  }
+  function sDraw(){
+    cx.clearRect(0,0,sW,sH);
+    var i,j,p,q,dx,dy,d;
+    cx.lineWidth=1;
+    for(i=0;i<P.length;i++){
+      p=P[i];
+      for(j=i+1;j<P.length;j++){
+        q=P[j];dx=p.x-q.x;dy=p.y-q.y;d=dx*dx+dy*dy;
+        if(d<14400){cx.strokeStyle='rgba('+rgb+','+((1-Math.sqrt(d)/120)*.3).toFixed(3)+')';cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(q.x,q.y);cx.stroke();}
+      }
+      if(mouse.on){
+        dx=p.x-mouse.x;dy=p.y-mouse.y;d=dx*dx+dy*dy;
+        if(d<25600){cx.strokeStyle='rgba('+rgb+','+((1-Math.sqrt(d)/160)*.55).toFixed(3)+')';cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(mouse.x,mouse.y);cx.stroke();}
+      }
+    }
+    cx.fillStyle='rgba('+rgb+',.75)';
+    for(i=0;i<P.length;i++){p=P[i];cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill();}
+  }
+  function sFrame(ts){
+    sRaf=requestAnimationFrame(sFrame);
+    var dt=sLast?Math.min(.05,(ts-sLast)/1000):.016;sLast=ts;
+    for(var i=0;i<P.length;i++){
+      var p=P[i];
+      if(mouse.on){
+        var dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<160&&d>1){var f=28*(1-d/160)*dt/d;p.x+=dx*f;p.y+=dy*f;}
+      }
+      p.x+=p.vx*dt;p.y+=p.vy*dt;
+      if(p.x<-5)p.x=sW+5;else if(p.x>sW+5)p.x=-5;
+      if(p.y<-5)p.y=sH+5;else if(p.y>sH+5)p.y=-5;
+    }
+    sDraw();
+  }
+  function sUpdate(){
+    var go=sVis&&!document.hidden&&!reduce;
+    if(go&&!sRaf){sLast=0;sRaf=requestAnimationFrame(sFrame);}
+    else if(!go&&sRaf){cancelAnimationFrame(sRaf);sRaf=0;}
+  }
+  starColor();sResize();
+  if(window.ResizeObserver)new ResizeObserver(sResize).observe(heroEl);else window.addEventListener('resize',sResize);
+  if(!reduce){
+    if('IntersectionObserver' in window)new IntersectionObserver(function(en){sVis=en[0].isIntersecting;sUpdate();}).observe(heroEl);
+    document.addEventListener('visibilitychange',sUpdate);
+    var mv=function(e){var r=heroEl.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.on=true;};
+    heroEl.addEventListener('pointermove',mv);heroEl.addEventListener('pointerdown',mv);
+    ['pointerleave','pointercancel','pointerup'].forEach(function(t){heroEl.addEventListener(t,function(){mouse.on=false;});});
+    sUpdate();
+  }
+
+  /* easter egg: 5 logo clicks in 2s */
+  var clicks=[],eggBusy=false;
+  logo.addEventListener('click',function(){
+    var now=Date.now();clicks.push(now);
+    clicks=clicks.filter(function(t){return now-t<2000;});
+    if(clicks.length>=5&&!eggBusy){clicks=[];eggBusy=true;egg();}
+  });
+  function egg(){
+    var tn=document.createElement('div');tn.className='toast';tn.setAttribute('role','status');
+    tn.textContent=D[root.getAttribute('lang')==='en'?'en':'ru'].egg;document.body.appendChild(tn);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){tn.classList.add('on');});});
+    setTimeout(function(){tn.classList.remove('on');setTimeout(function(){tn.remove();},450);},2500);
+    if(reduce){eggBusy=false;return;}
+    var c=document.createElement('canvas');c.className='rain';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
+    var g=c.getContext('2d'),d=Math.min(window.devicePixelRatio||1,2),w=window.innerWidth,h=window.innerHeight,fs=16,cols=Math.ceil(w/fs),drops=[],i;
+    c.width=w*d;c.height=h*d;g.setTransform(d,0,0,d,0,0);
+    for(i=0;i<cols;i++)drops.push(Math.random()*-40);
+    var col=getComputedStyle(root).getPropertyValue('--accent').trim()||'#7c5cff',chars='99wr1d01\u30A2\u30AB\u30B5\u30BF\u30CA',t0=0,last=0,fading=false;
+    g.font='bold '+fs+'px monospace';
+    function step(ts){
+      if(!t0)t0=ts;
+      var el=ts-t0;
+      if(el>=4000){c.remove();eggBusy=false;return;}
+      if(!fading&&el>3200){fading=true;c.style.opacity='0';}
+      requestAnimationFrame(step);
+      if(ts-last<45)return;last=ts;
+      g.globalCompositeOperation='destination-out';g.fillStyle='rgba(0,0,0,.12)';g.fillRect(0,0,w,h);
+      g.globalCompositeOperation='source-over';
+      for(var k=0;k<cols;k++){
+        var y=drops[k]*fs;
+        g.fillStyle=col;g.fillText(chars.charAt(Math.floor(Math.random()*chars.length)),k*fs,y);
+        if(y>h&&Math.random()>.96)drops[k]=0;else drops[k]+=1;
+      }
+    }
+    requestAnimationFrame(step);
   }
 })();
 </script>
